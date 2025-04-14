@@ -42,3 +42,49 @@ def train_test_split_by_group(X, y, group_column, test_size=0.2, random_state=No
     y_test = test_data['__target__']
 
     return X_train, X_test, y_train, y_test
+
+
+def split_dataframe_by_columns(df, columns = [
+    'CREDIT SCORE',
+    'ORIGINAL UPB',
+    'ORIGINAL INTEREST RATE',
+    'ORIGINAL LOAN-TO-VALUE (LTV)',
+    'ORIGINAL COMBINED LOAN-TO-VALUE (CLTV)',
+    'ORIGINAL DEBT-TO-INCOME (DTI) RATIO',
+    'ORIGINAL LOAN TERM',
+    'MORTGAGE INSURANCE PERCENTAGE (MI %)',
+    'ESTIMATED LOAN TO VALUE (ELTV)',
+    'CURRENT ACTUAL UPB',
+    'CURRENT INTEREST RATE',
+    'INTEREST BEARING UPB',
+    'CURRENT NON-INTEREST BEARING UPB',
+    'LOAN AGE',
+    'REMAINING MONTHS TO LEGAL MATURITY',
+    'NUMBER OF UNITS',
+    'NUMBER OF BORROWERS',
+    'DELINQUENCY',
+    'LAST MONTH DELINQUENCY STATUS',
+    'MONTHS IN DELINQUENCY PAST 12'
+]
+):
+    """
+    Splits a DataFrame into two DataFrames:
+    - One containing the specified columns
+    - The other containing the remaining columns
+
+    Parameters:
+    df (pd.DataFrame): The input DataFrame
+    columns (list): List of column names to include in the first DataFrame
+
+    Returns:
+    tuple: A tuple containing two DataFrames (df_with_columns, df_without_columns)
+    """
+    # Ensure the columns exist in the DataFrame
+    columns = [col for col in columns if col in df.columns]
+    
+    # Create the two DataFrames
+    df_with_columns = df[columns]
+    df_without_columns = df.drop(columns=columns)
+    
+    return df_with_columns, df_without_columns
+
