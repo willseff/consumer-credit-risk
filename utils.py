@@ -88,3 +88,25 @@ def split_dataframe_by_columns(df, columns = [
     
     return df_with_columns, df_without_columns
 
+def reorder_dataframe(columns_order, df):
+    """
+    Reorders a DataFrame based on a given list of column names.
+    Raises an error if there are columns in the DataFrame not in the list.
+
+    Parameters:
+    columns_order (list): List of column names in the desired order.
+    df (pd.DataFrame): The input DataFrame to reorder.
+
+    Returns:
+    pd.DataFrame: A reordered DataFrame.
+    """
+    # Check if all columns in the DataFrame are in the provided list
+    missing_columns = [col for col in df.columns if col not in columns_order]
+    if missing_columns:
+        raise ValueError(f"The following columns are not in the provided list: {missing_columns}")
+    
+    # Ensure the columns in the order list exist in the DataFrame
+    columns_order = [col for col in columns_order if col in df.columns]
+    
+    # Reorder the DataFrame
+    return df[columns_order]
